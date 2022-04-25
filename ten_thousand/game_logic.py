@@ -78,17 +78,3 @@ class GameLogic:
     for num in range(1, integer_length + 1):
       num_list.append(randint(1,6))
     return tuple(num_list)    
-
-class Banker: 
-
-  def __init__(self): 
-    pass 
-
-  def shelf(self, points): 
-    pass 
-
-  def bank(self):
-    pass 
-
-  def clear_shelf(self): 
-    pass 
