@@ -1,5 +1,7 @@
 from ten_thousand.game_logic import GameLogic
 
+total_dice = 6 
+
 class Game: 
   def play(self, roller=GameLogic.roll_dice):
     print('Welcome to Ten Thousand')
@@ -18,8 +20,9 @@ class Game:
       if res2 == 'q':
         print('Thanks for playing. You earned 0 points')
       elif res2 != 'q':
+        total_dice -= len(res2.split(' ').join(''))
         score = GameLogic.calculate_score((res2))
-        print(f"You have {score} unbanked points and 5 dice left")
+        print(f"You have {score} unbanked points and {total_dice} dice left")
 
 
 # Enter dice to keep, or (q)uit:
