@@ -1,5 +1,6 @@
 from ten_thousand.game_logic import GameLogic
 from ten_thousand.banker import Banker
+from collections import Counter 
 
 class Game: 
   def __init__(self):
@@ -18,6 +19,10 @@ class Game:
     elif response == 'y': 
         self.manage_rounds(roller)
 
+  def filter_response(self, roll, input):
+    for num in roll:
+      if roll[num] < input[num]: 
+        return 'BAD' 
 
 
   def format_dice_roll(self, roll):
@@ -51,6 +56,16 @@ class Game:
         else:
           print('Enter dice to keep, or (q)uit:')
           res2 = input('> ')
+          if res2 != 'q':
+            dice_list_check = [int(num) for num in res2]
+            input_counts = Counter(dice_list_check)
+            roll_counts = Counter(roll)
+            cheat_check = self.filter_response(roll_counts, input_counts)
+            if cheat_check: 
+              print("Cheater!!! Or possibly made a typo...")
+              print(formatted_roll)
+              print('Enter dice to keep, or (q)uit:')
+              res2 = input('> ')
 
           # Implement cheating protection here(To maintain clean code, put the anti-cheat in a function that gets called here.)
           if res2 == 'q':
@@ -58,6 +73,9 @@ class Game:
             print(f'Thanks for playing. You earned {self.banker.balance} points')
             break
           elif res2 != 'q':
+            #res2 is a string
+            res2 = res2.split(' ')
+            res2 = ''.join(res2)
             dice_list = [int(num) for num in res2]
             self.total_dice -= len(dice_list)
             score = GameLogic.calculate_score(dice_list)
@@ -76,6 +94,7 @@ class Game:
               self.manage_rounds(roller)
             elif res3 == 'q':
               self.playing = False
+              print(f'Thanks for playing. You earned {self.banker.balance} points')
               break
             # Look through the code and see if any additional code is necessary to handle an (r) response
 
