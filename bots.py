@@ -142,7 +142,9 @@ class PotatoBot(BaseBot):
         """your logic here"""
         
         if self.unbanked_points < 200: 
-          return "r"
+            # print("Returning")
+            return "r"
+        # print("Banking")
         return "b"
 
     def _enter_dice(self):
@@ -153,6 +155,6 @@ class PotatoBot(BaseBot):
 
 
 if __name__ == "__main__":
-    num_games = 20
+    num_games = 1
     NervousNellie.play(num_games)
     PotatoBot.play(num_games)
