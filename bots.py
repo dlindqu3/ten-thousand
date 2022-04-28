@@ -17,6 +17,7 @@ class BaseBot(ABC):
         self.last_roll = []
         self.print_all = print_all
         self.dice_remaining = 0
+        #if self.unbanked_points > 200, bank. else, continue or bust 
         self.unbanked_points = 0
 
         self.real_print = print
@@ -139,6 +140,9 @@ class NervousNellie(BaseBot):
 class PotatoBot(BaseBot):
     def _roll_bank_or_quit(self):
         """your logic here"""
+        
+        if self.unbanked_points < 200: 
+          return "r"
         return "b"
 
     def _enter_dice(self):
@@ -149,6 +153,6 @@ class PotatoBot(BaseBot):
 
 
 if __name__ == "__main__":
-    num_games = 100
+    num_games = 20
     NervousNellie.play(num_games)
     PotatoBot.play(num_games)
