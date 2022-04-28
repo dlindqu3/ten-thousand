@@ -13,3 +13,4 @@
 
 - Tests are run using pytest within a virtual enviroment.
 - There are as of day02, 70 tests in total checking the functions for input and output.
+- There are as of day03, 88 tests in total checking the functions for input and output.
