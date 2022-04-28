@@ -1,13 +1,15 @@
 from ten_thousand.game_logic import GameLogic
 from ten_thousand.banker import Banker
+import sys
 
 class Game: 
-  def __init__(self):
+  def __init__(self, max_rounds=20):
     self.total_dice = 6
     self.round_num = 1
     self.banker = Banker()
     self.playing = True
     self.kept_dice = ()
+    self.max_rounds = max_rounds 
 
   def play(self, roller=GameLogic.roll_dice):
     print('Welcome to Ten Thousand')
@@ -27,6 +29,10 @@ class Game:
         return dice_roll
 
   def manage_rounds(self, roller):
+      if self.max_rounds == self.round_num:
+        print(f'Thanks for playing. You earned {self.banker.balance} points') 
+        sys.exit()
+
       print(f'Starting round {self.round_num}')
       while self.playing:
         print(f'Rolling {self.total_dice} dice...')
