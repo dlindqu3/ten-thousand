@@ -10,6 +10,7 @@ class Game:
     self.playing = True
     self.kept_dice = ()
     self.num_rounds = num_rounds 
+    self.new_round = True
 
   def play(self, roller=GameLogic.roll_dice):
     print('Welcome to Ten Thousand')
@@ -30,8 +31,10 @@ class Game:
 
   def manage_rounds(self, roller):
 
-      print(f'Starting round {self.round_num}')
       while self.playing:
+        if self.new_round == True:
+          print(f'Starting round {self.round_num}')
+          self.new_round = False
         print(f'Rolling {self.total_dice} dice...')
         roll = roller(self.total_dice)
         formatted_roll = self.format_dice_roll(roll)
@@ -47,7 +50,7 @@ class Game:
           print(f"Total score is {self.banker.balance} points")
           self.round_num += 1
           self.total_dice = 6
-          self.manage_rounds(roller)
+          self.new_round = True
         else:
           cheat_check = False
           while not cheat_check:
@@ -86,7 +89,7 @@ class Game:
 
               self.round_num += 1
               self.total_dice = 6
-              self.manage_rounds(roller)
+              self.new_round = True
 
             elif res3 == 'q':
               self.playing = False
