@@ -19,3 +19,23 @@ pytestmark = [pytest.mark.version_3]
 def test_get_scorers(test_input, expected):
     actual = GameLogic.get_scorers(test_input)
     assert sorted(actual) == sorted(expected)
+
+def test_edge_case_hot_dice_get_scorers():
+    actual = GameLogic.get_scorers((1,2,3,4,5,6))
+    expected = (1,2,3,4,5,6)
+    assert actual == expected
+
+def test_edge_case_pairs_get_scorers():
+    actual = GameLogic.get_scorers((2,2,3,3,4,4))
+    expected = (2,2,3,3,4,4)
+    assert actual == expected
+
+def test_edge_case_multi_dice_get_scorers():
+    actual = GameLogic.get_scorers((1,1,2,3,4,6))
+    expected = (1,1)
+    assert actual == expected
+
+def test_edge_case_multi_dice_2_get_scorers():
+    actual = GameLogic.get_scorers((5,5,5,5,5,5))
+    expected = (5,5,5,5,5,5)
+    assert actual == expected
