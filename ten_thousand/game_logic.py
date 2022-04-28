@@ -7,6 +7,44 @@ class GameLogic:
     pass 
 
   @staticmethod
+  def get_scorers(roll):
+    if roll == ():
+      return roll
+    roll_count = Counter(roll)
+    for num in roll_count:
+      return_list = []
+      score = GameLogic.calculate_score(roll)
+      if score == 1500:
+        return roll
+      if roll_count[1] > 0:
+        for num in range(1, roll_count[1]+1):
+          return_list.append(1)
+      if roll_count[5] > 0:
+        for num in range(1, roll_count[5]+1):
+          return_list.append(5)
+      if roll_count[num] > 3:
+        return_list.append(num)
+      return tuple(return_list)
+
+  def filter_response(roll, input):
+    for num in roll:
+      if roll[num] < input[num]: 
+        return 'BAD' 
+      
+      
+
+  def validate_keepers(roll, response, filter_response = filter_response):
+    dice_list_check = [int(num) for num in response]
+    input_counts = Counter(dice_list_check)
+    roll_counts = Counter(roll)
+    cheat_check = filter_response(roll_counts, input_counts)
+    if cheat_check:
+      return False
+    else:
+      return True
+
+
+  @staticmethod
   def calculate_score(tuple_of_ints): 
     score = 0
     num_counts = Counter(tuple_of_ints)
