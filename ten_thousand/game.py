@@ -74,7 +74,7 @@ class Game:
             score = GameLogic.calculate_score(dice_list)
             self.banker.shelf(score)
             print(f"You have {self.banker.shelved} unbanked points and {self.total_dice} dice remaining")
-            if self.total_dice == 0:
+            if self.total_dice == 0 and (score == 1500 or score == 1200):
               self.total_dice = 6
             print("(r)oll again, (b)ank your points or (q)uit:")
             res3 = input('> ')
