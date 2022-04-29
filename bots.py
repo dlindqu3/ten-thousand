@@ -155,6 +155,6 @@ class PotatoBot(BaseBot):
 
 
 if __name__ == "__main__":
-    num_games = 1
+    num_games = 3
     NervousNellie.play(num_games)
     PotatoBot.play(num_games)
