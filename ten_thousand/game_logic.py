@@ -14,7 +14,7 @@ class GameLogic:
     for num in roll_count:
       return_list = []
       score = GameLogic.calculate_score(roll)
-      if score == 1500:
+      if score == 1500 or score == 1200:
         return roll
       if roll_count[1] > 0:
         for num in range(1, roll_count[1]+1):

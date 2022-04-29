@@ -3,13 +3,14 @@ from ten_thousand.banker import Banker
 import sys
 
 class Game: 
-  def __init__(self, max_rounds=20):
+  def __init__(self, num_rounds=20):
     self.total_dice = 6
     self.round_num = 1
     self.banker = Banker()
     self.playing = True
     self.kept_dice = ()
-    self.max_rounds = max_rounds 
+    self.num_rounds = num_rounds 
+    self.new_round = True
 
   def play(self, roller=GameLogic.roll_dice):
     print('Welcome to Ten Thousand')
@@ -29,12 +30,11 @@ class Game:
         return dice_roll
 
   def manage_rounds(self, roller):
-      if self.max_rounds == self.round_num:
-        print(f'Thanks for playing. You earned {self.banker.balance} points') 
-        sys.exit()
 
-      print(f'Starting round {self.round_num}')
       while self.playing:
+        if self.new_round == True:
+          print(f'Starting round {self.round_num}')
+          self.new_round = False
         print(f'Rolling {self.total_dice} dice...')
         roll = roller(self.total_dice)
         formatted_roll = self.format_dice_roll(roll)
@@ -50,7 +50,7 @@ class Game:
           print(f"Total score is {self.banker.balance} points")
           self.round_num += 1
           self.total_dice = 6
-          self.manage_rounds(roller)
+          self.new_round = True
         else:
           cheat_check = False
           while not cheat_check:
@@ -74,7 +74,7 @@ class Game:
             score = GameLogic.calculate_score(dice_list)
             self.banker.shelf(score)
             print(f"You have {self.banker.shelved} unbanked points and {self.total_dice} dice remaining")
-            if self.total_dice == 0:
+            if self.total_dice == 0 and (score == 1500 or score == 1200):
               self.total_dice = 6
             print("(r)oll again, (b)ank your points or (q)uit:")
             res3 = input('> ')
@@ -82,9 +82,15 @@ class Game:
               print(f"You banked {self.banker.shelved} points in round {self.round_num}")
               self.banker.bank()
               print(f"Total score is {self.banker.balance} points")
+
+              if self.num_rounds == self.round_num:
+                print(f'Thanks for playing. You earned {self.banker.balance} points') 
+                sys.exit()
+
               self.round_num += 1
               self.total_dice = 6
-              self.manage_rounds(roller)
+              self.new_round = True
+
             elif res3 == 'q':
               self.playing = False
               print(f'Thanks for playing. You earned {self.banker.balance} points')
